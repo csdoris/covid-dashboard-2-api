@@ -41,7 +41,7 @@ class DataCard extends Component {
         return (
           <Paper className={classes.paper}>
             <Typography variant="h5">{title}</Typography>
-            <Typography variant="h4">{(this.props[worldType] > 0) ? <NumberFormat value={this.props[worldType]} displayType={'text'} thousandSeparator={true} /> : 'N/A'}</Typography>
+            <Typography variant="h4">{(this.props[worldType] >= 0) ? <NumberFormat value={this.props[worldType]} displayType={'text'} thousandSeparator={true} /> : 'N/A'}</Typography>
           </Paper>
         )
       } else {
