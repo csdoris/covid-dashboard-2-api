@@ -50,7 +50,7 @@ class DataCard extends Component {
         return (
           <Paper className={classes.paper}>
             <Typography variant="h5">{title}</Typography>
-            <Typography variant="h4">{(number) ? <NumberFormat value={number} displayType={'text'} thousandSeparator={true} /> : 'N/A'}</Typography>
+            <Typography variant="h4">{(number >= 0) ? <NumberFormat value={number} displayType={'text'} thousandSeparator={true} /> : 'N/A'}</Typography>
           </Paper>
         )
       }
