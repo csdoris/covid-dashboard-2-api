@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
@@ -53,21 +53,15 @@ class Dashboard extends Component {
     } else {
       return (
         <div className={classes.root}>
-          <Grid container spacing={1}>
-            <Fragment>
-            <Grid container item xs={12} sm={3} spacing={3} direction="column">
-              <Grid item><CountryRankTable /></Grid>
-              { cards.map((d,i) => 
-                <Grid key={i} item><DataCard title={d.title} type={d.type} /></Grid>
-              )}
-            </Grid>
-            </Fragment>
-            <Grid container item xs={12} sm={6} spacing={1} direction="column">
-              <Grid item xs={12}><ChartCard type={'map'} /></Grid>
-            </Grid>
-            <Grid container item xs={12} sm={3} spacing={1} direction="column">
-              <Grid item xs={12}><ChartCard type={'bar'} /></Grid>
-            </Grid>
+          <Grid container spacing={3}>
+            { cards.map((d,i) => (
+              <Grid item xs={12} sm={3} key={i}><DataCard title={d.title} type={d.type} /></Grid>
+            ))}
+          </Grid>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={3}><CountryRankTable /></Grid>
+            <Grid item xs={12} sm={6}><ChartCard type={'map'} /></Grid>
+            <Grid item xs={12} sm={3}><ChartCard type={'bar'} /></Grid>
           </Grid>
         </div>
       )

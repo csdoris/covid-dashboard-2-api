@@ -66,7 +66,6 @@ export const fetchData = () => dispatch => {
           cumRecovery: items[i].recovered,
         });
       }
-      console.log(newData)
       dispatch(fetchDataSuccess(newData));
     }, (error) => {
       dispatch(fetchDataFail(error));
