@@ -35,14 +35,15 @@ function mapStateToProps(state) {
   return {
     loading: state.data.loading,
     error: state.data.error,
+    histLoading: state.data.histLoading,
   }
 }
 
 class Dashboard extends Component {
   render() {
-    const { classes, error, loading, histError, histLoading } = this.props;
+    const { classes, error, loading, histLoading } = this.props;
 
-    if (error || histError) {
+    if (error) {
       return (
         <div>Sorry, data cannot be loaded properly.</div>
       )
