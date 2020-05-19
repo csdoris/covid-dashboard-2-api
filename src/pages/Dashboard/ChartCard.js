@@ -23,7 +23,7 @@ class ChartCard extends Component {
 
     return (
       <Paper className={classes.paper}>
-        { type === 'bar' ? <LineChart /> : <SimpleMap /> }
+        { type === 'line' ? <LineChart /> : <SimpleMap /> }
       </Paper>
     )
   }

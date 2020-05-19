@@ -40,29 +40,28 @@ function mapStateToProps(state) {
 
 class Dashboard extends Component {
   render() {
-    const { classes, error, loading } = this.props;
+    const { classes, error, loading, histError, histLoading } = this.props;
 
-    if (error) {
+    if (error || histError) {
       return (
         <div>Sorry, data cannot be loaded properly.</div>
       )
-    } else if (loading) {
+    } else if (loading || histLoading) {
       return (
         <BigCircularProgress />
       )
     } else {
       return (
         <div className={classes.root}>
-          <Grid container spacing={3}>
+          <Grid container spacing={1}>
             { cards.map((d,i) => (
               <Grid item xs={12} sm={3} key={i}><DataCard title={d.title} type={d.type} /></Grid>
             ))}
           </Grid>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={3}><CountryRankTable /></Grid>
-            <Grid item xs={12} sm={6}><ChartCard type={'map'} /></Grid>
-            <Grid item xs={12} sm={3}><ChartCard type={'bar'} /></Grid>
-            <Grid item xs={12} sm={3}><ChartCard type={'bar'} /></Grid>
+          <Grid container spacing={1}>
+            <Grid item xs={12} sm={2}><CountryRankTable /></Grid>
+            <Grid item xs={12} sm={5}><ChartCard type={'map'} /></Grid>
+            <Grid item xs={12} sm={5}><ChartCard type={'line'} /></Grid>
           </Grid>
         </div>
       )
