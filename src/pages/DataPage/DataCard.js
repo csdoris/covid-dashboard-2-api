@@ -20,7 +20,6 @@ const styles = theme => ({
 
 function mapStateToProps(state) {
   return {
-    data: state.data.items,
     countries: state.data.countries,
     worldCumConfirmed: state.data.worldCumConfirmed,
     worldCumDeaths: state.data.worldCumDeaths,

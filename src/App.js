@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { fetchData } from './reducers/dataReducer/dataActions';
+import { fetchData, fetchHistoricalData } from './reducers/dataReducer/dataActions';
 
 import Header from './components/Header';
 import DataPage from './pages/DataPage/DataPage';
@@ -18,6 +18,7 @@ function mapStateToProps(state) {
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(fetchData());
+    this.props.dispatch(fetchHistoricalData());
   }
 
   render() {

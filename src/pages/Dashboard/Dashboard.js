@@ -62,6 +62,7 @@ class Dashboard extends Component {
             <Grid item xs={12} sm={3}><CountryRankTable /></Grid>
             <Grid item xs={12} sm={6}><ChartCard type={'map'} /></Grid>
             <Grid item xs={12} sm={3}><ChartCard type={'bar'} /></Grid>
+            <Grid item xs={12} sm={3}><ChartCard type={'bar'} /></Grid>
           </Grid>
         </div>
       )

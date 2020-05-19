@@ -1,4 +1,4 @@
-import { FETCH_DATA_BEGIN, FETCH_DATA_SUCCESS, FETCH_DATA_FAIL, CHANGE_COUNTRY, OPEN_DRAWER, CLOSE_DRAWER, SET_TOOLTIP } from './dataConstants';
+import { FETCH_DATA_BEGIN, FETCH_DATA_SUCCESS, FETCH_DATA_FAIL, FETCH_HISTORICAL_DATA_BEGIN, FETCH_HISTORICAL_DATA_SUCCESS, FETCH_HISTORICAL_DATA_FAIL, CHANGE_COUNTRY, OPEN_DRAWER, CLOSE_DRAWER, SET_TOOLTIP } from './dataConstants';
 
 import axios from 'axios';
 
@@ -17,7 +17,7 @@ export const fetchDataSuccess = (newData) => ({
     worldCumDeaths: newData.worldCumDeaths,
     worldCumRecovery: newData.worldCumRecovery,
   },
-})
+});
 
 export const fetchDataFail = (error) => ({
   type: FETCH_DATA_FAIL,
@@ -67,16 +67,122 @@ export const fetchData = () => dispatch => {
         });
       }
       dispatch(fetchDataSuccess(newData));
-    }, (error) => {
+    }).catch(error => {
       dispatch(fetchDataFail(error));
-    })
+    });
+}
+
+export const fetchHistoricalDataBegin = () => ({
+  type: FETCH_HISTORICAL_DATA_BEGIN,
+});
+
+export const fetchHistoricalDataSuccess = (newData) => ({
+  type: FETCH_HISTORICAL_DATA_SUCCESS,
+  payLoad: {
+    histData: newData.histData,
+    histWorldData: newData.histWorldData,
+  },
+});
+
+export const fetchHistoricalDataFail = (error) => ({
+  type: FETCH_HISTORICAL_DATA_FAIL,
+  payload: {
+    histError: error,
+  },
+});
+
+export const fetchHistoricalData = () => dispatch => {
+  dispatch(fetchHistoricalDataBegin());
+  axios.get(`https://disease.sh/v2/historical`).then(response => {
+    let items = response.data;
+    let newData = {
+      histWorldData: {
+        cases: [],
+        deaths: [],
+        recovered: [],
+      },
+      histData: {
+        cases: [],
+        deaths: [],
+        recovered: [],
+      },
+    };
+    for (let i in items) {
+      for (let j in items[i].timeline.cases) {
+        if (!newData.histData.cases.find(c => (c.countryName === items[i].country && c.day === j))) {
+          newData.histData.cases.push({
+            countryName: items[i].country,
+            day: j,
+            cases: items[i].timeline.cases[j],
+          })
+        } else {
+          const objIndex = newData.histData.cases.findIndex(obj => (obj.countryName === items[i].country && obj.day === j));
+          newData.histData.cases[objIndex].cases += items[i].timeline.cases[j];
+        }
+        if (!newData.histWorldData.cases.find(a => a.day === j)) {
+          newData.histWorldData.cases.push({
+            day: j,
+            cases: items[i].timeline.cases[j],
+          });
+         } else {
+           const objIndex = newData.histWorldData.cases.findIndex(obj => obj.day === j);
+           newData.histWorldData.cases[objIndex].cases += items[i].timeline.cases[j];
+        }
+      }
+      for (let j in items[i].timeline.deaths) {
+        if (!newData.histData.deaths.find(c => (c.countryName === items[i].country && c.day === j))) {
+          newData.histData.deaths.push({
+            countryName: items[i].country,
+            day: j,
+            deaths: items[i].timeline.deaths[j],
+          });
+        } else {
+          const objIndex = newData.histData.deaths.findIndex(obj => (obj.countryName === items[i].country && obj.day === j));
+          newData.histData.deaths[objIndex].deaths += items[i].timeline.deaths[j];
+        }
+        if (!newData.histWorldData.deaths.find(a => a.day === j)) {
+          newData.histWorldData.deaths.push({
+            day: j,
+            deaths: items[i].timeline.deaths[j],
+          });
+         } else {
+           const objIndex = newData.histWorldData.deaths.findIndex(obj => obj.day === j);
+           newData.histWorldData.deaths[objIndex].deaths += items[i].timeline.deaths[j];
+        }
+      }
+      for (let j in items[i].timeline.recovered) {
+        if (!newData.histData.recovered.find(c => (c.countryName === items[i].country && c.day === j))) {
+          newData.histData.recovered.push({
+            countryName: items[i].country,
+            day: j,
+            recovered: items[i].timeline.recovered[j],
+          });
+        } else {
+          const objIndex = newData.histData.recovered.findIndex(obj => (obj.countryName === items[i].country && obj.day === j));
+          newData.histData.recovered[objIndex].recovered += items[i].timeline.recovered[j];
+        }
+        if (!newData.histWorldData.recovered.find(a => a.day === j)) {
+          newData.histWorldData.recovered.push({
+            day: j,
+            recovered: items[i].timeline.recovered[j],
+          });
+         } else {
+           const objIndex = newData.histWorldData.recovered.findIndex(obj => obj.day === j);
+           newData.histWorldData.recovered[objIndex].recovered += items[i].timeline.recovered[j];
+        }
+      }
+    }
+    dispatch(fetchHistoricalDataSuccess(newData));
+  }).catch(error => {
+    dispatch(fetchHistoricalDataFail(error));
+  });
 }
 
 export const changeCountry = (country) => ({
   type: CHANGE_COUNTRY,
   payLoad: {
     selectedCountry: country,
-  },
+  }
 })
 
 export const openDrawer = () => ({

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
 
-import BarChart from './BarChart';
+import LineChart from './LineChart';
 import SimpleMap from './SimpleMap';
 
 const styles = theme => ({
@@ -23,7 +23,7 @@ class ChartCard extends Component {
 
     return (
       <Paper className={classes.paper}>
-        { type === 'bar' ? <BarChart /> : <SimpleMap /> }
+        { type === 'bar' ? <LineChart /> : <SimpleMap /> }
       </Paper>
     )
   }
