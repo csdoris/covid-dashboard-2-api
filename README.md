@@ -1,9 +1,13 @@
-Try using Axios with React to get data from API
+This is a COVID-19 dashboard built with React. Data is fetched from APIs using Axios.
+
+## Live demo
+https://doris-axios-sandbox.web.app
 
 ## Packages used
 
-yarn add axios @material-ui/core @material-ui/icons react-router-dom redux react-redux redux-thunk react-number-format react-simple-maps react-tooltip bizcharts d3 react-plotly.js plotly.js
+axios @material-ui/core @material-ui/icons react-router-dom redux react-redux redux-thunk react-number-format react-simple-maps react-tooltip react-plotly.js plotly.js
 
-## Live demo site
+## API used
 
-https://doris-axios-sandbox.web.app
+https://corona.lmao.ninja/v2/countries
+https://disease.sh/v2/historical
