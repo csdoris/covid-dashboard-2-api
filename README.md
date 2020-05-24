@@ -9,5 +9,5 @@ axios @material-ui/core @material-ui/icons react-router-dom redux react-redux re
 
 ## API used
 
-https://corona.lmao.ninja/v2/countries
+https://corona.lmao.ninja/v2/countries  
 https://disease.sh/v2/historical
