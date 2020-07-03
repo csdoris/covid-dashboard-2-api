@@ -1,7 +1,7 @@
 This is a COVID-19 dashboard built with React. Data is fetched from APIs using Axios.
 
 ## Live demo
-https://doris-axios-sandbox.web.app
+https://covid-dashboard-2-api.web.app
 
 ## API used
 
